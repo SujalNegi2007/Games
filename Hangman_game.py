@@ -26,7 +26,10 @@ while True:
         List = ["_", "_", "_", "_", "_"]
         while True:
             print("\nGuess the word below")
-            print(f"{List}\nNote: You have {Lives} lives")
+            if len(Guessed) > 0:
+                print(f"{List}\nNote: You have {Lives} lives\nYou have guessed {' '.join(Guessed)} till now")
+            else:
+                print(f"{List}\nNote: You have {Lives} lives")
             Guess = input(f"Enter the Letter: ").capitalize()
             if "_" not in List:
                 Win = True
@@ -56,7 +59,7 @@ while True:
                         Win = False
                         break
                 else:
-                    print(f"Already Guessed {Guessed}!")
+                    print(f"Already Guessed {Guess}!")
         if Win:
             print(f"You Win! You still have {Lives} lives left!")
             if Lives >=4:
