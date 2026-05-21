@@ -20,6 +20,7 @@ while True:
         Lives = 6
         Word = random.choice(Options)
         Word_list = []
+        Guessed = set()
         for i in range(5):
             Word_list.append(Word[i])
         List = ["_", "_", "_", "_", "_"]
@@ -34,7 +35,7 @@ while True:
                 Win = False
                 break
             elif Guess in List:
-                print("Already Guessed!")
+                print(f"Already Guessed: {Guessed}")
             elif Guess in Word_list:
                 for i in range(5):
                     if Guess == Word_list[i]:
@@ -46,12 +47,16 @@ while True:
                     Win = True
                     break
             elif Guess not in  Word_list:
-                Lives -= 1
-                print(f"\n{Guess} is not present in the Word.")
-                print(f"\nNote: You have {Lives} lives")
-                if Lives == 0:
-                    Win = False
-                    break
+                if Guess not in Guessed:
+                    Guessed.add(Guess)
+                    Lives -= 1
+                    print(f"\n{Guess} is not present in the Word.")
+                    print(f"\nNote: You have {Lives} lives")
+                    if Lives == 0:
+                        Win = False
+                        break
+                else:
+                    print(f"Already Guessed {Guessed}!")
         if Win:
             print(f"You Win! You still have {Lives} lives left!")
             if Lives >=4:
@@ -60,7 +65,7 @@ while True:
                 Your_Overall_Score += 1
         else:
             print(f"You Lose! You have {Lives} lives left!")
-            print("".join(Word_list))
+            print(f'The Word Was {" ".join(Word_list)}')
 #_______________________________________________________________________
     elif Menu == 2:
         break
