@@ -6,11 +6,11 @@ Options = [
     "JUDGE", "LIGHT", "MUSIC", "OCEAN", "QUIET"
 ]
 print("Welcome to the Hangman Game")
-Your_Overall_Score = 0
+Scores = {"Wins": 0, "Losses": 0, "Total_Score": 0}
 #_______________________________________________________________________
 
 while True:
-    Menu = int(input("\nTo Play The Game        : Enter *1*\nTo Exit The Game        : Enter *2*\nTo Check Your Score     : Enter *3*\n"))
+    Menu = int(input("\n+-------------------------------------+\n| To Play The Game        : Enter *1* |\n| To Exit The Game        : Enter *2* |\n| To Check Your Score     : Enter *3* |\n+-------------------------------------+\n"))
     if Menu not in [1,2,3]:
         print("Invalid Option!")
     
@@ -63,14 +63,18 @@ while True:
         if Win:
             print(f"You Win! You still have {Lives} lives left!")
             if Lives >=4:
-                Your_Overall_Score += 2
+                Scores["Total_Score"] += 2
+                Scores["Wins"] += 1
             else:
-                Your_Overall_Score += 1
+                Scores["Total_Score"] += 1
+                Scores["Wins"] += 1
         else:
             print(f"You Lose! You have {Lives} lives left!")
             print(f'The Word Was {" ".join(Word_list)}')
+            Scores["Losses"] += 1
 #_______________________________________________________________________
     elif Menu == 2:
         break
     elif Menu == 3:
-        print(f"Total score: {Your_Overall_Score}")
+        for key, value in Scores.items():
+            print(f"{key} : {value}")
