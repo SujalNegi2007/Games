@@ -6,10 +6,11 @@ Full_Name = " ".join(w.capitalize() for w in Full_Name.split(" "))
 Name = Full_Name.split(" ")
 Surname = Name[-1]
 Name = Name[0]
-Your_Overall_Score = 0
+Scores = {"Easy_Wins": 0, "Medium_Wins": 0, "Hard_Wins": 0, "Total_Score": 0, "Easy_Lose": 0, "Medium_Lose": 0, "Hard_Lose": 0, "Best_attempts_of_Easy_difficulty" : 10,  "Best_attempts_of_Medium_difficulty" : 7, "Best_attempts_of_Hard_difficulty" : 5}
+
 while True:
     Win = False
-    Main_Menu = int(input("\nFor Easy Mode(50)      : Enter *1*\nFor Medium Mode(100)   : Enter *2*\nFor Hard Mode(200)     : Enter *3*\nTo Exit The Game       : Enter *4*\nTo check the score     : Enter *5*\n"))
+    Main_Menu = int(input("\n+------------------------------------+\n| For Easy Mode(50)      : Enter *1* |\n| For Medium Mode(100)   : Enter *2* |\n| For Hard Mode(200)     : Enter *3* |\n| To Exit The Game       : Enter *4* |\n| To check the score     : Enter *5* |\n+------------------------------------+\n"))
     if Main_Menu == 1:
         Computer_guess = random.randint(1,50)
         Odd_Even = Computer_guess % 2
@@ -41,10 +42,15 @@ while True:
             turns += 1
         if Win:
             print(f"Your Win {Name}! No. of Guess Used: {turns}")
-            Your_Overall_Score += 1
+            Scores["Easy_Wins"] += 1
+            Scores["Total_Score"] += 1
+            if turns <= Scores["Best_attempts_of_Easy_difficulty"]:
+                Scores["Best_attempts_of_Easy_difficulty"] = turns
         else:
             print(f"You lose {Name}! All Guess Used!")
             print(f"The Number was {Computer_guess}")
+            Scores["Total_Score"] -= 1
+            Scores["Easy_Lose"] += 1
 
 #-----------------------------------------------------------------------
     elif Main_Menu == 2:
@@ -78,10 +84,15 @@ while True:
             turns += 1
         if Win:
             print(f"Your Win {Name}! No. of Guess Used: {turns}")
-            Your_Overall_Score += 2
+            Scores["Medium_Wins"] += 2
+            Scores["Total_Score"] += 2
+            if turns <= Scores["Best_attempts_of_Medium_difficulty"]:
+                Scores["Best_attempts_of_Medium_difficulty"] = turns
         else:
             print(f"You lose {Name}! All Guess Used!")
             print(f"The Number was {Computer_guess}")
+            Scores["Total_Score"] -= 2
+            Scores["Medium_Lose"] += 1
 
 #-----------------------------------------------------------------------
     elif Main_Menu == 3:
@@ -115,10 +126,15 @@ while True:
             turns += 1
         if Win:
             print(f"Your Win {Name}! No. of Guess Used: {turns}")
-            Your_Overall_Score += 3
+            Scores["Hard_Wins"] += 3
+            Scores["Total_Score"] += 3
+            if turns <= Scores["Best_attempts_of_Hard_difficulty"]:
+                Scores["Best_attempts_of_Hard_difficulty"] = turns
         else:
             print(f"You lose {Name}! All Guess Used!")
             print(f"The Number was {Computer_guess}")
+            Scores["Total_Score"] -= 3
+            Scores["Hard_Lose"] += 1
 
 #-----------------------------------------------------------------------
     elif Main_Menu == 4:
@@ -126,4 +142,5 @@ while True:
         break
 
     elif Main_Menu == 5:
-        print(f"{Full_Name} total score is {Your_Overall_Score}!")
+        for num, score in Scores.items():
+            print(f"{num} : {score}")
