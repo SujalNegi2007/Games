@@ -6,7 +6,10 @@ Options = [
     "JUDGE", "LIGHT", "MUSIC", "OCEAN", "QUIET",
     "APPLE", "BREAD", "BRUSH", "CHAIR", "CHEST",
     "CHORD", "CLICK", "CLOCK", "CLOUD", "DANCE",
-    "DIARY", "DRINK", "FLUTE", "GRAPE", "HOUSE"
+    "DIARY", "DRINK", "FLUTE", "GRAPE", "HOUSE",
+    "SMILE", "PLANT", "SHARK", "FROST", "BLIND",
+    "FLAME", "GRAIN", "CRISP", "STORM", "PEACH", 
+    "BRICK", "GLOVE", "TRACE", "STUMP", "WHALE"
 ]
 print("Welcome to the Hangman Game")
 Scores = {"Wins": 0, "Losses": 0, "Total_Score": 0}
