@@ -7,4 +7,4 @@ Python games built while learning.
 - Number Guessing Game (with Easy/Medium/Hard modes, hints and score tracking)
 - Hangman Game (with score tracking, lives system, and bonus points for efficiency)(Latest Update day 7)
 - Snake & Ladder (two-player bot game with random snakes/ladders and turn-based dice rolling)
-- Mastermind (Currently have lot of bugs)(Latest Update: day 8)
+- Mastermind (crack the secret code, Easy/Medium/Hard modes, win/loss history)(Latest Update: day 8)
