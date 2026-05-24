@@ -19,31 +19,41 @@ def user_guess():
 def check_guess(b):
     win = False
     a = user_guess()
+    guess_used = [False, False, False, False]
+    code_used = [False, False, False, False]
     c = 0
     d = 0
     for i in range(4):
         if a[i] == b[i]:
             c += 1
+            guess_used[i] = True
+            code_used[i] = True
     if c == 4:
         win = True
     for i in range(4):
-        if a[i] in b and a[i] != b[i]:
-            d +=1
+        if not guess_used[i]:
+            for j in range(4):
+                if not code_used[j] and a[i] == b[j]:
+                    d +=1
+                    code_used[j] = True
+                    break
+                    
+                    
     summary = (["Exact : ",c],["Partial : ",d])
     print(summary)
     return win
+#-----------------------------------------------------------------------
 def back_menu(lives,b,first_name):
-    print("\nGame is starting...\nRandom Code is Generated.\n")
-    extra_code = check_guess(b)
     fixed_code = code(b)
     for i in range(lives):
-        if fixed_code == user_guess() or extra_code:
+        win = check_guess(fixed_code)
+        if win:
             print("You Win!")
-            History[first_name][0][1] +=1
+            History[first_name][0][1] += 1
             break
-        elif i == lives-1:
-            print("You Lose!")
-            History[first_name][1][1] +=1
+    else:
+        print("You lose!")
+        History[first_name][1][1] += 1
     return
 def window():
     print("\n+-------------------------------------------+\n| To Play Easy Mastermind       : Enter [1] |\n| To Play Medium Mastermind     : Enter [2] |\n| To Play Hard Mastermind       : Enter [3] |\n| To View History               : Enter [4] |\n| To Clear History              : Enter [5] |\n| To Exit The Mastermind        : Enter [6] |\n+-------------------------------------------+\n")
