@@ -1,149 +1,75 @@
 #Number Guessing Game
+#__________________________________________________________________________
 import random
-print("Welcome To The Number Guessing Game")
-Full_Name = input("Enter Your Full Name: ").strip()
-Full_Name = " ".join(w.capitalize() for w in Full_Name.split(" "))
-Name = Full_Name.split(" ")
-Surname = Name[-1]
-Name = Name[0]
-Scores = {"Easy_Wins": 0, "Medium_Wins": 0, "Hard_Wins": 0, "Total_Score": 0, "Easy_Lose": 0, "Medium_Lose": 0, "Hard_Lose": 0, "Best_attempts_of_Easy_difficulty" : 10,  "Best_attempts_of_Medium_difficulty" : 7, "Best_attempts_of_Hard_difficulty" : 5}
-
+scores = {"Easy_Wins": 0, "Medium_Wins": 0, "Hard_Wins": 0, "Total_Score": 0, "Easy_Lose": 0, "Medium_Lose": 0, "Hard_Lose": 0, "Best_attempts_of_Easy_difficulty" : 10,  "Best_attempts_of_Medium_difficulty" : 7, "Best_attempts_of_Hard_difficulty" : 5}
+#__________________________________________________________________________
+def name_func():
+    full_name = input("Enter Your Full Name: ").capitalize().strip()
+    name = full_name.split(" ")
+    surname = name[-1]
+    first_name = name[0]
+    return first_name
+#__________________________________________________________________________
+def window():
+    return ("\n+------------------------------------+\n| For Easy Mode(50)      : Enter *1* |\n| For Medium Mode(100)   : Enter *2* |\n| For Hard Mode(200)     : Enter *3* |\n| To Exit The Game       : Enter *4* |\n| To check the score     : Enter *5* |\n+------------------------------------+\n")
+#__________________________________________________________________________
+def front_menu(a,name,b):
+    computer_guess = random.randint(1,b)
+    condition = ["Easy" if a == 10 else "Medium" if a == 7 else "Hard" if a == 5 else "Invalid Input"]
+    win = False
+    number = ["Odd" if computer_guess%2 == 1 else "Even"]
+    turns = 1
+    for i in range(a):
+        guess_left = a - turns
+        player_guess = int(input(f"\nEnter a number b/w 1 to {b}: "))
+        c = ["It's getting hot..." if 0 <= player_guess - computer_guess <= 10 else "It's getting warm..." if 11 <= player_guess - computer_guess <= 20 else "It's getting cold..." ]
+        if player_guess < 1 or player_guess > b:
+            print(f"Number b/w 1 to {b} only!")
+        elif player_guess == computer_guess:
+            win = True
+            break
+        elif turns == a//2:
+            print(f"The Number is {number[0]}")
+            if player_guess < computer_guess:
+                print(f"Try a larger number than {player_guess}. No. of Guess left: {guess_left}. {c[0]}")
+            elif player_guess > computer_guess:
+                print(f"Try a smaller number than {player_guess}. No. of Guess left: {guess_left}. {c[0]}")
+        elif player_guess < computer_guess:
+            print(f"Try a larger number than {player_guess}. No. of Guess left: {guess_left}. {c[0]}")
+        elif player_guess > computer_guess:
+            print(f"Try a smaller number than {player_guess}. No. of Guess left: {guess_left}. {c[0]}")
+        else:
+            print("Only Numbers are allowed!")
+        turns += 1
+    if win:
+        print(f"Your win! {name}! No. of Guess Used: {turns}")
+        scores[f"{condition[0]}_Wins"] += 1
+        scores["Total_Score"] += 1
+        if turns <= scores[f"Best_attempts_of_{condition[0]}_difficulty"]:
+            scores[f"Best_attempts_of_{condition[0]}_difficulty"] = turns
+    else:
+        print(f"You Lose! {name}! All Guess Used!")
+        print(f"The Number was {computer_guess}")
+        scores["Total_Score"] -= 1
+        scores[f"{condition[0]}_Lose"] += 1
+#______________________________________________________________________
 while True:
-    Win = False
-    try:
-        Main_Menu = int(input("\n+------------------------------------+\n| For Easy Mode(50)      : Enter *1* |\n| For Medium Mode(100)   : Enter *2* |\n| For Hard Mode(200)     : Enter *3* |\n| To Exit The Game       : Enter *4* |\n| To check the score     : Enter *5* |\n+------------------------------------+\n"))
+    print("Welcome To The Number Guessing Game")
+    first_name = name_func()
+    while True:
+        print(window())
+        Main_Menu = int(input())
         if Main_Menu == 1:
-            Computer_guess = random.randint(1,50)
-            Odd_Even = Computer_guess % 2
-            if Odd_Even == 1:
-                Number = "Odd"
-            else:
-                Number = "Even"
-            turns = 1
-            for i in range(10):
-                Guess_left = 10 - turns
-                Player_guess = int(input("\nEnter a number b/w 1 to 50: "))
-                if Player_guess < 1 or Player_guess > 50:
-                    print("Number b/w 1 to 50 only!")
-                elif Player_guess == Computer_guess:
-                    Win = True
-                    break
-                elif turns == 5:
-                    print(f"The Number is {Number}")
-                    if Player_guess < Computer_guess:
-                        print(f"Try a larger number than {Player_guess}. No. of Guess left: {Guess_left}")
-                    elif Player_guess > Computer_guess:
-                        print(f"Try a smaller number than {Player_guess}. No. of Guess left: {Guess_left}")
-                elif Player_guess < Computer_guess:
-                    print(f"Try a larger number than {Player_guess}. No. of Guess left: {Guess_left}")
-                elif Player_guess > Computer_guess:
-                    print(f"Try a smaller number than {Player_guess}. No. of Guess left: {Guess_left}")
-                else:
-                    print("Only Numbers are allowed!")
-                turns += 1
-            if Win:
-                print(f"Your Win {Name}! No. of Guess Used: {turns}")
-                Scores["Easy_Wins"] += 1
-                Scores["Total_Score"] += 1
-                if turns <= Scores["Best_attempts_of_Easy_difficulty"]:
-                    Scores["Best_attempts_of_Easy_difficulty"] = turns
-            else:
-                print(f"You lose {Name}! All Guess Used!")
-                print(f"The Number was {Computer_guess}")
-                Scores["Total_Score"] -= 1
-                Scores["Easy_Lose"] += 1
-
-#-----------------------------------------------------------------------
+            front_menu(10,first_name,50)
         elif Main_Menu == 2:
-            Computer_guess = random.randint(1,100)
-            Odd_Even = Computer_guess % 2
-            if Odd_Even == 1:
-                Number = "Odd"
-            else:
-                Number = "Even"
-            turns = 1
-            for i in range(7):
-                Guess_left = 7 - turns
-                Player_guess = int(input("\nEnter a number b/w 1 to 100: "))
-                if Player_guess < 1 or Player_guess > 100:
-                    print("Number b/w 1 to 100 only!")
-                elif Player_guess == Computer_guess:
-                    Win = True
-                    break
-                elif turns == 4:
-                    print(f"The Number is {Number}")
-                    if Player_guess < Computer_guess:
-                        print(f"Try a larger number than {Player_guess}. No. of Guess left: {Guess_left}")
-                    elif Player_guess > Computer_guess:
-                        print(f"Try a smaller number than {Player_guess}. No. of Guess left: {Guess_left}")
-                elif Player_guess < Computer_guess:
-                    print(f"Try a larger number than {Player_guess}. No. of Guess left: {Guess_left}")
-                elif Player_guess > Computer_guess:
-                    print(f"Try a smaller number than {Player_guess}. No. of Guess left: {Guess_left}")
-                else:
-                    print("Only Numbers are allowed!")
-                turns += 1
-            if Win:
-                print(f"Your Win {Name}! No. of Guess Used: {turns}")
-                Scores["Medium_Wins"] += 2
-                Scores["Total_Score"] += 2
-                if turns <= Scores["Best_attempts_of_Medium_difficulty"]:
-                    Scores["Best_attempts_of_Medium_difficulty"] = turns
-            else:
-                print(f"You lose {Name}! All Guess Used!")
-                print(f"The Number was {Computer_guess}")
-                Scores["Total_Score"] -= 2
-                Scores["Medium_Lose"] += 1
-    
-    #-----------------------------------------------------------------------
+            front_menu(7,first_name,100)
         elif Main_Menu == 3:
-            Computer_guess = random.randint(1,200)
-            Odd_Even = Computer_guess % 2
-            if Odd_Even == 1:
-                Number = "Odd"
-            else:
-                Number = "Even"
-            turns = 1
-            for i in range(5):
-                Guess_left = 5 - turns
-                Player_guess = int(input("\nEnter a number b/w 1 to 200: "))
-                if Player_guess < 1 or Player_guess > 200:
-                    print("Number b/w 1 to 200 only!")
-                elif Player_guess == Computer_guess:
-                    Win = True
-                    break
-                elif turns == 3:
-                    print(f"The Number is {Number}")
-                    if Player_guess < Computer_guess:
-                        print(f"Try a larger number than {Player_guess}. No. of Guess left: {Guess_left}")
-                    elif Player_guess > Computer_guess:
-                        print(f"Try a smaller number than {Player_guess}. No. of Guess left: {Guess_left}")
-                elif Player_guess < Computer_guess:
-                    print(f"Try a larger number than {Player_guess}. No. of Guess left: {Guess_left}")
-                elif Player_guess > Computer_guess:
-                    print(f"Try a smaller number than {Player_guess}. No. of Guess left: {Guess_left}")
-                else:
-                    print("Only Numbers are allowed!")
-                turns += 1
-            if Win:
-                print(f"Your Win {Name}! No. of Guess Used: {turns}")
-                Scores["Hard_Wins"] += 3
-                Scores["Total_Score"] += 3
-                if turns <= Scores["Best_attempts_of_Hard_difficulty"]:
-                    Scores["Best_attempts_of_Hard_difficulty"] = turns
-            else:
-                print(f"You lose {Name}! All Guess Used!")
-                print(f"The Number was {Computer_guess}")
-                Scores["Total_Score"] -= 3
-                Scores["Hard_Lose"] += 1
-    
-    #-----------------------------------------------------------------------
+            front_menu(5,first_name,200)
         elif Main_Menu == 4:
             print("Thank you for playing the game!")
             break
-    
         elif Main_Menu == 5:
-            for num, score in Scores.items():
+            for num, score in scores.items():
                 print(f"{num} : {score}")
-    except:
-        print("Enter Only Valid Input")
+        else:
+            print("Invalid Input!")
