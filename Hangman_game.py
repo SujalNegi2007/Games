@@ -1,5 +1,13 @@
 #Hangman Game
 import random
+from pathlib import Path
+from datetime import datetime
+score_file = Path("score.txt", encoding = "utf-8")
+def open_file(text):
+    with score_file.open("a") as f:
+        f.write(f"[{datetime.now().strftime('%d/%B/%Y %H:%M:%S')}]: {text}.")
+if not score_file.is_file:
+    open_file("File Created")
 Options = [
     "ABOUT", "ALERT", "BEACH", "BRAIN", "CHAIN", 
     "DREAM", "ERROR", "FORCE", "GIANT", "HOTEL", 
@@ -87,3 +95,4 @@ while True:
                 print(f"{key} : {value}")
     except:
         print("Enter Only Valid Input!")
+open_file(f"Latest Score: {Scores}")
