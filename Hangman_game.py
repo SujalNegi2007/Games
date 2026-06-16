@@ -2,11 +2,11 @@
 import random
 from pathlib import Path
 from datetime import datetime
-score_file = Path("score.txt", encoding = "utf-8")
+score_file = Path("score.txt")
 def open_file(text):
-    with score_file.open("a") as f:
+    with score_file.open("a", encoding = "utf-8") as f:
         f.write(f"[{datetime.now().strftime('%d/%B/%Y %H:%M:%S')}]: {text}.")
-if not score_file.is_file:
+if not score_file.is_file():
     open_file("File Created")
 Options = [
     "ABOUT", "ALERT", "BEACH", "BRAIN", "CHAIN", 
