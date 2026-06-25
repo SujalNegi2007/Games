@@ -2,7 +2,7 @@
 
 Python games built while learning.
 
-## Games
+## Games That Are Build Using The Knowleadge that is aquired through python
 - Rock Paper Scissors (with 3 and 5 round modes + score tracking)
 - Number Guessing Game (with Easy/Medium/Hard modes, hints and score tracking)(Latest Update: day 10)
 - Hangman Game (with score tracking, lives system, and bonus points for efficiency)(Latest Update: day 7)
