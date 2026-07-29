@@ -1,6 +1,6 @@
 # Games
 
-Python games built while learning.
+Building game while learning.
 
 ## Games That Are Build Using The Knowleadge that is aquired through python
 - Rock Paper Scissors (with 3 and 5 round modes + score tracking)
